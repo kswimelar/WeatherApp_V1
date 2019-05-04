@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.Toast
+import edu.rvc.student.weatherapp_v1.data.Request
+import edu.rvc.student.weatherapp_v1.R
+import edu.rvc.student.weatherapp_v1.ForcastListAdapter
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,8 +26,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val forcastList = findViewById<RecyclerView>(R.id.forcast_list)
-        forcastList.layoutManager = LinearLayoutManager(this)
-        forcastList.adapter = ForcastListAdapter(items)
+        val forecastList = findViewById<RecyclerView>(R.id.forecast_list)
+        forecastList.layoutManager = LinearLayoutManager(this)
+        forecastList.adapter = ForcastListAdapter(items)
+
+        val url = "http://api.openweathermap.org/data/2.5/forcast/daily?" +
+                "APPID=15646a06818f61f7b8d7823ca833e1ce&zip=94043&mode=json&units=metric&cnt=7"
+
+        {
+            Request(url).run()
+            uiThread { Toast("Request performed") }
+        }
     }
 }

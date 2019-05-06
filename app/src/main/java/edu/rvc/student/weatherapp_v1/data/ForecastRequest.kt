@@ -1,6 +1,7 @@
 package edu.rvc.student.weatherapp_v1.data
 
 import com.google.gson.Gson
+import java.net.URL
 
 class ForecastRequest(private val zipCode: String) {
     companion object {
